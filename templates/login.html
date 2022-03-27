@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+  <head>
+      <meta charset=" utf-8">
+    <title> Login Forum </title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'login.css'%}" type="text/css" media="screen" >
+  </head>
+  
+  <body>
+
+    <form class="box" action="/" method = "post">
+        
+
+    
+    <h1> Login </h1>
+    {% csrf_token %}
+    <input type="text" name = "email" placeholder="email" required>
+    <input type="password" name = "password" placeholder="password" required>
+    <input type="submit" value="login">
+    <a href="/admin/student_register" class="addk" >student_register</a><br>
+    <a href="/admin/faculty_register" class="addk">faculty_register</a><br>
+    <a href="/admin/student_add_details" class="addk">Student add details</a><br>
+    <a href="/admin/subjects" class="addk">Subject Page</a><br>
+    
+    {% for message in messages %}
+    <ul class="messages">
+        {{message}}
+  
+        {% endfor %}
+    </ul>
+
+
+
+</form>
+
+
+  </body>
+</html>

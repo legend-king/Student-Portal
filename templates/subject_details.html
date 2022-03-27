@@ -1,0 +1,15 @@
+<p>Dept : {{dept1}}</p>
+<p>Sem : {{sem}}</p>
+{% for i in data%}
+    <p>Subject Name : {{i.sub_name}}</p>
+    <p>Subject Code : {{i.sub_code}}</p>
+    <button hx-get="{% url 'subject-update' dept sem i.sub_code %}" 
+    hx-target="#subject-details">Update</button>
+    <button hx-get="{% url 'subject-delete' dept sem i.sub_code %}" 
+    hx-target="#subject-details">Delete</button>
+{% endfor %} 
+{% comment %} <button class=btn btn-primary type="submit">Dont click me </button> {% endcomment %}
+<br>
+<br>
+<button name="edit" type="submit" hx-get="{% url 'subject-edit' dept sem %}"
+hx-target="#subject-details">Add subjects</button>

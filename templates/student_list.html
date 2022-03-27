@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+  <head>
+      <meta charset=" utf-8">
+    <title> Login Forum </title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'login.css'%}" type="text/css" media="screen" >
+  </head>
+  
+  <body>
+
+    {% block content %}
+  <h1>Students List</h1>
+  {% if data %}
+  <ul>
+    {% for book in data %}
+      <li>
+        <a href="students/{{book}}">{{book}}</a> 
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no Students registered</p>
+  {% endif %}
+{% endblock %}
+  </body>
+</html>

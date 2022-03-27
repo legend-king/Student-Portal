@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+  <head>
+      <meta charset=" utf-8">
+    <title> Login Forum </title>
+    {% load static %}
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    {% comment %} <link rel="stylesheet" href="{%static 'login.css'%}" type="text/css" media="screen" > {% endcomment %}
+  </head>
+  
+  <body>
+      <h1> {{student.name}} </h1>
+      <h2> {{student.email}} </h2>
+    <form action="{{request.path}}" method="post">
+      {% csrf_token %}
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname"><br>
+        <label for="year">Select year of studying : </label><br>
+          <select name="year" id="year">
+              <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+            <option value="four">4</option>
+          </select><br><br>
+           <label for="department">Select Department : </label><br>
+          <select name="department" id="department">
+              <option value="aero">Aeronautical Engineering</option>
+            <option value="aiml">Artificial Intelligence and Machine Learning</option>
+            <option value="auto">Automobile Engineering</option>
+            <option value="biomedical">biomedical Engineering</option>
+            <option value="biotechnology">biotechnology</option>
+            <option value="chem">Chemical Engineering</option>
+            <option value="civil">Civil Engineering</option>
+            <option value="csd">Computer Science and Design</option>
+            <option value="cse">Computer Science Engineering</option>
+            <option value="csbs">Computer Science and Business System</option>
+            <option value="eee">Electrical and Electronics Engineering</option>
+            <option value="ece">Electronics and Communication Engineering</option>
+            <option value="ft">Food Technology</option>
+            <option value="it">Information Technology</option>
+            <option value="mech">Mechanical Engineering</option>
+            <option value="mecha">Mechatronics</option>
+            <option value="robo">Robotics and Automation</option>
+          </select><br><br> 
+          <label for="section">Select section : </label><br>
+          <select name="section" id="section">
+              <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+            <option value="d">D</option>
+            <option value="e">E</option>
+          </select><br><br>
+        <input type="submit" name="{{student.id}}_btn" value="None of the above">
+      </form> 
+
+      {% comment %} <div hx-target="this" hx-swap="outerHTML">
+        <div><label>First Name</label>: Joe</div>
+        <div><label>Last Name</label>: Blow</div>
+        <div><label>Email</label>: joe@blow.com</div>
+        <button hx-post="{{request.path}}" class="btn btn-primary">
+        Click To Edit
+        </button>
+    </div>
+
+      <form hx-post="{{request.path}}" hx-target="this" hx-swap="outerHTML">
+        <div>
+          <label>First Name</label>
+          <input type="text" name="firstName" value="Joe">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="lastName" value="Blow">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" value="joe@blow.com">
+        </div>
+        <button class="btn">Submit</button>
+        <button class="btn" hx-post="{{request.path}}">Cancel</button>
+      </form>  {% endcomment %}
+    
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<form hx-put="{% url 'student-detail' student.id %}" hx-target="#student-details">
+    {% csrf_token %}
+      <label for="name">Name : </label><br>
+      <input type="text" id="name" name="name" value="{{student.name}}"><br>
+      {% comment %} <label for="regno">Register Number : </label><br>
+      <input type="Number" id="regno" name="regno" value="{{student.id}}"><br> {% endcomment %}
+      {% comment %} <label for="email">Email :  </label><br>
+      <input type="email" id="email" name="email" value="{{student.email}}"><br> {% endcomment %}
+      <label for="year">Select year of studying : </label><br>
+        <select name="year" id="year">
+          <option value="">Select one of the option</option> 
+            <option value="one" {% if student.year == 'one' %} selected="selected" {% endif %}>1</option>
+          <option value="two" {% if student.year == 'two' %} selected="selected" {% endif %}>2</option>
+          <option value="three" {% if student.year == 'three' %} selected="selected" {% endif %}>3</option>
+          <option value="four" {% if student.year == 'four' %} selected="selected" {% endif %}>4</option>
+        </select><br><br>
+      <label for="semester">Select current Semester : </label><br>
+        <select name="semester" id="semester">
+          <option value="">Select one of the option</option>
+            <option value="one" {% if student.semester == 'one' %} selected="selected" {% endif %}>1</option>
+          <option value="two" {% if student.semester == 'two' %} selected="selected" {% endif %}>2</option>
+          <option value="three" {% if student.semester == 'three' %} selected="selected" {% endif %}>3</option>
+          <option value="four" {% if student.semester == 'four' %} selected="selected" {% endif %}>4</option>
+          <option value="five" {% if student.semester == 'five' %} selected="selected" {% endif %}>5</option>
+          <option value="six" {% if student.semester == 'six' %} selected="selected" {% endif %}>6</option>
+          <option value="seven" {% if student.semester == 'seven' %} selected="selected" {% endif %}>7</option>
+          <option value="eight" {% if student.semester == 'eight' %} selected="selected" {% endif %}>8</option>
+        </select><br><br>
+         <label for="department">Select Department : </label><br>
+        <select name="department" id="department">
+          <option value="">Select one of the option</option>
+            <option value="aero" {% if student.dept == "aero" %} selected="selected" {% endif %}>Aeronautical Engineering</option>
+          <option value="aiml" {% if student.dept == "aiml" %} selected="selected" {% endif %}>Artificial Intelligence and Machine Learning</option>
+          <option value="auto" {% if student.dept == "auto" %} selected="selected" {% endif %}>Automobile Engineering</option>
+          <option value="biomedical" {% if student.dept == "biomedical" %} selected="selected" {% endif %}>biomedical Engineering</option>
+          <option value="biotechnology" {% if student.dept == "biotechnology" %} selected="selected" {% endif %}>biotechnology</option>
+          <option value="chem" {% if student.dept == "chem" %} selected="selected" {% endif %}>Chemical Engineering</option>
+          <option value="civil" {% if student.dept == "civil" %} selected="selected" {% endif %}>Civil Engineering</option>
+          <option value="csd" {% if student.dept == "csd" %} selected="selected" {% endif %}>Computer Science and Design</option>
+          <option value="cse" {% if student.dept == "cse" %} selected="selected" {% endif %}>Computer Science Engineering</option>
+          <option value="csbs" {% if student.dept == "csbs" %} selected="selected" {% endif %}>Computer Science and Business System</option>
+          <option value="eee" {% if student.dept == "eee" %} selected="selected" {% endif %}>Electrical and Electronics Engineering</option>
+          <option value="ece" {% if student.dept == "ece" %} selected="selected" {% endif %}>Electronics and Communication Engineering</option>
+          <option value="ft" {% if student.dept == "ft" %} selected="selected" {% endif %}>Food Technology</option>
+          <option value="it" {% if student.dept == "it" %} selected="selected" {% endif %}>Information Technology</option>
+          <option value="mech" {% if student.dept == "mech" %} selected="selected" {% endif %}>Mechanical Engineering</option>
+          <option value="mecha" {% if student.dept == "mecha" %} selected="selected" {% endif %}>Mechatronics</option>
+          <option value="robo" {% if student.dept == "robo" %} selected="selected" {% endif %}>Robotics and Automation</option>
+        </select><br><br> 
+        <label for="section">Select section : </label><br>
+        <select name="section" id="section">
+          <option value="">Select one of the option</option>
+            <option value="a" {% if student.section == 'a' %} selected="selected" {% endif %}>A</option>
+          <option value="b" {% if student.section == 'b' %} selected="selected" {% endif %}>B</option>
+          <option value="c" {% if student.section == 'c' %} selected="selected" {% endif %}>C</option>
+          <option value="d" {% if student.section == 'd' %} selected="selected" {% endif %}>D</option>
+          <option value="e" {% if student.section == 'e' %} selected="selected" {% endif %}>E</option>
+        </select><br><br>
+      <input class="btn btn-primary" type="submit"/>
+    </form>

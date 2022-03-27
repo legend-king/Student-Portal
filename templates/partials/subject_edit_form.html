@@ -1,0 +1,9 @@
+<form hx-post="{% url 'subject-details' dept sem %}" hx-target="#subject-details">
+        {% csrf_token %}
+                <input type="text" name="sub_name" placeholder="Enter the subject name : " required>
+                <input type="text" name="sub_code" placeholder="Enter the subject code : " required>
+                <input name="edit"  class="btn btn-primary" type="submit"/>
+                <a href="/admin/subjects/{{dept}}/{{sem}}">
+                         Cancel
+                </a>
+</form>

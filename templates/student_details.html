@@ -1,0 +1,12 @@
+<p> Name : {{student.name}}</p>
+{% comment %} <p> Regno : {{student.id}}</p>
+<p> Email : {{student.email}}</p> {% endcomment %}
+<p> Year : {{student.year}}</p>
+<p> Semester : {{student.semester}}</p>
+<p> Dept : {{student.dept}}</p>
+<p> Section : {{student.section}}</p>
+
+
+<button class=btn btn-primary
+hx-get="{% url 'student-edit-form' student.id%}"
+hx-target="#student-details">Edit</button>
