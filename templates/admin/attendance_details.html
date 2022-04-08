@@ -1,0 +1,11 @@
+{% for i in data %}
+    <p>Dept : {{i.dept}}</p>
+    <p>Subject Code : {{i.sub_code}}</p>
+    <p>Sem : {{i.sem}}</p>
+    <p>Year : {{i.year}}</p>
+    <p>Staff code : {{i.staff_code}}</p>
+    <p>Date : {{i.date}}</p>
+    <p> Section : {{i.section}}</p>
+{% endfor %}
+<button name="edit" type="submit" hx-get="{% url 'attendance-edit'%}"
+hx-target="#attendance-details">Add Attendance</button>

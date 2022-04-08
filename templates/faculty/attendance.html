@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+  <head>
+      <meta charset=" utf-8">
+    <title> Login Forum </title>
+    {% load static %}
+    {% comment %} <link rel="stylesheet" href="{%static 'login.css'%}" type="text/css" media="screen" > {% endcomment %}
+  </head>
+  
+  <body>
+      {% for i in data %}
+      <p> Dept : {{i.dept}} </p>
+      <p> Sem : {{i.sem}}</p>
+      <p> Sub Code : {{i.sub_code}} </p>
+      <p> year : {{i.year}} </p>
+      <p> section : {{i.section}} </p>
+    <a href="/faculty/attendance/{{i.key}}"  >Update</a><br>
+    {% endfor %}
+</body>
+</html>

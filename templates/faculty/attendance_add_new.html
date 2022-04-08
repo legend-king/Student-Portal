@@ -1,0 +1,9 @@
+<form hx-post="{% url 'attendance-add' key %}" hx-target="#faculty-attendance-add">
+    {% csrf_token %}
+            <input type="text" name="date" placeholder="Enter the date : " required>
+            <input type="text" name="hour" placeholder="Enter the hour : " required>
+            <input name="edit" type="submit"/>
+            <a href="/faculty/attendance/{{key}}">
+                     Cancel
+            </a>
+</form>

@@ -3,6 +3,7 @@ from django.http import HttpResponseNotFound, QueryDict
 import pymongo
 from django.contrib import messages
 from admin_app import my_classes
+from login.views import login_details
 
 client = pymongo.MongoClient("mongodb://localhost:27017")
 db = client['student_portal']
@@ -17,9 +18,12 @@ subject_list={'robo':"Robotics and Automation",'cse':"Computer Science and Engin
 'eee':"Electrical and Electronics Engineering",'civil':"Civil Engineering",
 'biotechnology':"Biotechnology",'biomedical':"Biomedical Engineering"}
 subject_collection = db['subjects']
+attendance_collection = db['attendance']
 
 # Create your views here.
 def student_register(request):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     if request.method=='POST':
         name = request.POST.get('name')
         rollno = request.POST.get('rollno')
@@ -28,9 +32,11 @@ def student_register(request):
         student_collection.insert_one({'name':name,'_id':rollno,'email':email,
         'password':password})
         messages.success(request, 'Student added successfully')
-    return render(request, 'student_register.html')
+    return render(request, 'admin/student_register.html')
 
 def faculty_register(request):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     if request.method=='POST':
         name = request.POST.get('name')
         staffcode = request.POST.get('staffcode')
@@ -39,16 +45,20 @@ def faculty_register(request):
         faculty_collection.insert_one({'name':name,'_id':staffcode,'email':email,
         'password':password})
         messages.success(request, 'Faculty added successfully')
-    return render(request, 'faculty_register.html')
+    return render(request, 'admin/faculty_register.html')
 
 
 def student_add_details(request):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     students = list(student_collection.find({}, {'_id':1}))
     student = [x['_id'] for x in students]
     context={'data':student}
-    return render(request, 'student_list.html', context)
+    return render(request, 'admin/student_list.html', context)
 
 def student_details(request, regno):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     # if request.method=="POST":
     #     department = request.POST.get('department')
     #     section = request.POST.get('section')
@@ -66,28 +76,38 @@ def student_details(request, regno):
     if len(x)==0:
         return HttpResponseNotFound("<h1>No such register number exists !</h1>")
     if request.method=="GET":
-        return render(request,'student.html',context)
+        return render(request,'admin/student.html',context)
     elif request.method=="PUT":
         data = QueryDict(request.body).dict()
         student_collection.update_one({'_id':regno},{'$set':{'name':data['name'],
         'year':data['year'],'department':data['department'],'section':data['section'],
         'semester':data['semester']}})
-    return render(request, 'student.html', context)
+        y=my_classes.Student(x[0]['name'],x[0]['_id'],x[0]['email'],
+        subject_list[data['department']]
+        ,data['year'],data['section'],data['semester'])
+    context = {'student':y}
+    return render(request, 'admin/student.html', context)
 
 def subjects(request):
-    return render(request, "subjects.html")
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
+    return render(request, "admin/subjects.html")
 
 def sem(request, dept):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     if dept not in subject_list:
         return HttpResponseNotFound("<h1> No such department </h1>")
     y=list(subject_collection.find({'dept':dept}))
     if len(y)==0:
         subject_collection.insert_one({'dept':dept,'sem1':[],'sem2':[],'sem3':[],
         'sem4':[],'sem5':[],'sem6':[],'sem7':[],'sem8':[]})
-    return render(request, "sem.html", {'dept':dept})
+    return render(request, "admin/sem.html", {'dept':dept})
 
 
 def subject_details(request, dept, sem):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     if dept not in subject_list:
         return HttpResponseNotFound("<h1> No such department </h1>")
     if not sem.isdigit():
@@ -102,7 +122,7 @@ def subject_details(request, dept, sem):
         s.append(my_classes.Subject(i[0],i[1]))
     context={'data':s, 'dept1':subject_list[dept],'dept':dept, 'sem':sem}
     if request.method=="GET":
-        return render(request,'subject.html',context)
+        return render(request,'admin/subject.html',context)
     if request.method=="POST" and "edit" in request.POST:
         data1 = QueryDict(request.body).dict()
         for i in tp:
@@ -129,7 +149,7 @@ def subject_details(request, dept, sem):
     for i in tp:
         s.append(my_classes.Subject(i[0],i[1]))
     context={'data':s, 'dept1':subject_list[dept],'dept':dept, 'sem':sem}
-    return render(request, "subject.html", context)
+    return render(request, "admin/subject.html", context)
     
 
 # def subject_department(request, dept):
@@ -157,6 +177,8 @@ def subject_details(request, dept, sem):
 
 
 def student_edit(request,regno):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     x=list(student_collection.find({'_id':regno}))
     if len(x)==0:
         return HttpResponseNotFound("<h1>No such register number exists !</h1>")
@@ -170,6 +192,8 @@ def student_edit(request,regno):
 
 
 def subject_edit(request, dept, sem):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     if dept not in subject_list:
         return HttpResponseNotFound("<h1> No such department exists</h1>")
     if not sem.isdigit():
@@ -181,6 +205,8 @@ def subject_edit(request, dept, sem):
     return render(request, "partials/subject_edit_form.html", context)
 
 def subject_update(request, dept, sem, subcode):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     if dept not in subject_list:
         return HttpResponseNotFound("<h1> No such department exists</h1>")
     if not sem.isdigit():
@@ -199,7 +225,7 @@ def subject_update(request, dept, sem, subcode):
     if tp1==[]:
         return HttpResponseNotFound("<h1>No Such subject code exists</h1>")
     context = {'dept':dept, 'data':tp2, 'sem':sem}
-    return render(request, "subject_update.html", context)
+    return render(request, "admin/subject_update.html", context)
 
 # def subject_delete(request, dept, sem, subcode):
 #     if dept not in subject_list:
@@ -213,6 +239,8 @@ def subject_update(request, dept, sem, subcode):
 #     return render(request, "partials/subject_edit_form.html", context)
 
 def subject_delete(request, dept, sem, subcode):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
     if dept not in subject_list:
         return HttpResponseNotFound("<h1> No such department exists</h1>")
     if not sem.isdigit():
@@ -235,4 +263,37 @@ def subject_delete(request, dept, sem, subcode):
     for i in tp:
         s.append(my_classes.Subject(i[0],i[1]))
     context={'dept':dept,'sem':sem,'data':s, 'dept1':subject_list[dept]}
-    return render(request, "subject.html", context)
+    return render(request, "admin/subject.html", context)
+
+
+def attendance(request):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
+    x=list(attendance_collection.find())
+    data=[]
+    for i in x:
+        data.append(my_classes.Attendance(i['dept'],i['sem'],i['year'],i['sub_code']
+        ,"",i['staff_code'],i['section']))
+    if request.method=="POST" and "edit" in request.POST:
+        data1 = QueryDict(request.body).dict()
+        del data1['edit']
+        del data1['csrfmiddlewaretoken']
+        temp = list(attendance_collection.find(data1))
+        if len(temp)>0:
+            return HttpResponseNotFound("Already exists")
+        else:
+            temp1=""
+            for i in data1.values():
+                temp1+=str(i)
+            data1['key']=temp1
+            attendance_collection.insert_one(data1)
+        data.append(my_classes.Attendance(data1['dept'],data1['sem'],data1['year'],
+        data1['sub_code'], "", data1['staff_code'],data1['section']))
+    context={'data':data}
+    return render(request, 'admin/attendance.html', context)
+
+
+def attendance_add(request):
+    # if login_info[0]==-1:
+    #     return HttpResponseNotFound("Go and login first")
+    return render(request, "partials/attendance_edit_form.html")

@@ -18,6 +18,8 @@ urlpatterns = [
     path("subjects/<dept>/<sem>/edit", views.subject_edit, name='subject-edit'),
     path("subjects/<dept>/<sem>/update/<subcode>", views.subject_update, name="subject-update"),
     path("subjects/<dept>/<sem>/delete/<subcode>",views.subject_delete,name='subject-delete'),
+    path("attendance",views.attendance, name='admin_attendance'),
+    path("attendance/add", views.attendance_add, name='attendance-edit'),
 
     # path("subjects/edit/<dept>/<sem>",views.subject_edit,name="subject-edit"),
     # path("subjects/<dept>")

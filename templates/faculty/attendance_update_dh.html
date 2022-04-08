@@ -1,0 +1,14 @@
+<h1> Attendance Details </h1>
+{% for i in data%}
+    <p>Reg no : {{i.regno}}</p>
+    {% if i.present == 1 %}
+        <button hx-get="{% url 'attendance-update-dh-regno' key dh i.regno %}" 
+        hx-target="#faculty-attendance-add">Present</button>
+    {% endif %}
+    {% if i.present == 0 %}
+        <button hx-get="{% url 'attendance-update-dh-regno' key dh i.regno %}" 
+        hx-target="#faculty-attendance-add">Absent</button>
+    {% endif %}
+{% endfor %} 
+<br>
+<a href="/faculty/attendance/{{key}}">Back</a>

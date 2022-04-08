@@ -1,0 +1,57 @@
+<form hx-post="{% url 'admin_attendance'%}" hx-target="#attendance-details">
+    {% csrf_token %}
+    <input type="text" name="sub_code"
+        placeholder="Enter the subject code : " required>
+    <input type="text" name="staff_code" 
+        placeholder="Enter the staff code : " required><br>
+    <label for="year">Select year of studying : </label><br>
+    <select name="year" id="year">
+        <option value="one">1</option>
+      <option value="two">2</option>
+      <option value="three">3</option>
+      <option value="four">4</option>
+    </select><br><br>
+    <label for="year">Select sem of studying : </label><br>
+    <select name="sem" id="sem">
+        <option value="one">1</option>
+      <option value="two">2</option>
+      <option value="three">3</option>
+      <option value="four">4</option>
+      <option value="five">5</option>
+      <option value="six">6</option>
+      <option value="seven">7</option>
+      <option value="eight">8</option>
+    </select><br><br>
+     <label for="dept">Select Department : </label><br>
+    <select name="dept" id="department">
+        <option value="aero">Aeronautical Engineering</option>
+      <option value="aiml">Artificial Intelligence and Machine Learning</option>
+      <option value="auto">Automobile Engineering</option>
+      <option value="biomedical">biomedical Engineering</option>
+      <option value="biotechnology">biotechnology</option>
+      <option value="chem">Chemical Engineering</option>
+      <option value="civil">Civil Engineering</option>
+      <option value="csd">Computer Science and Design</option>
+      <option value="cse">Computer Science Engineering</option>
+      <option value="csbs">Computer Science and Business System</option>
+      <option value="eee">Electrical and Electronics Engineering</option>
+      <option value="ece">Electronics and Communication Engineering</option>
+      <option value="ft">Food Technology</option>
+      <option value="it">Information Technology</option>
+      <option value="mech">Mechanical Engineering</option>
+      <option value="mecha">Mechatronics</option>
+      <option value="robo">Robotics and Automation</option>
+    </select><br><br> 
+    <label for="section">Select section : </label><br>
+    <select name="section" id="section">
+        <option value="a">A</option>
+      <option value="b">B</option>
+      <option value="c">C</option>
+      <option value="d">D</option>
+      <option value="e">E</option>
+    </select><br><br>
+    <input name="edit"  class="btn btn-primary" type="submit"/>
+    <a href="/admin/attendance">
+                Cancel
+    </a>
+</form>

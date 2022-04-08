@@ -1,0 +1,14 @@
+<h1> Attendance Details </h1>
+{% for i in data%}
+    <p>Date : {{i.date}}</p>
+    <p>Hour : {{i.hour}}</p>
+    <button hx-get="{% url 'attendance-update-dh' key i.dh %}" 
+    hx-target="#faculty-attendance-add">Update</button>
+    {% comment %} <button hx-get="{% url 'subject-delete' dept sem i.sub_code %}" 
+    hx-target="#subject-details">Delete</button> {% endcomment %}
+{% endfor %} 
+{% comment %} <button class=btn btn-primary type="submit">Dont click me </button> {% endcomment %}
+<br>
+<br>
+<button name="edit" type="submit" hx-get="{% url 'attendance-add-new' key %}"
+hx-target="#faculty-attendance-add">Add another attendance</button>
